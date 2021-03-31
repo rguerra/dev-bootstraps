@@ -1,7 +1,11 @@
 
 
 
-
+# Create a new SSH key
+resource "digitalocean_ssh_key" "default" {
+  name       = "Terraform Example"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
 resource "digitalocean_droplet" "www-1" {
     image = "ubuntu-18-04-x64"
     name = "www-1"
@@ -9,7 +13,7 @@ resource "digitalocean_droplet" "www-1" {
     size = "s-4vcpu-8gb"
     private_networking = true
     ssh_keys = [
-      var.ssh_fingerprint
+	digitalocean_ssh_key.default.fingerprint
     ]
   connection {
       host = self.ipv4_address
