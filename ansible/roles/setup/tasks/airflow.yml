@@ -1,0 +1,11 @@
+---
+# This playbook contains airflow actions that will be run on "remote" host.
+
+- name: Start Airflow container.
+  docker_container:
+    name: airflow
+    image: puckel/docker-airflow
+    ports:
+      - "8880:8080"
+  tags:
+    - airflow

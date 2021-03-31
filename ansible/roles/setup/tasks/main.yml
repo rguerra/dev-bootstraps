@@ -1,0 +1,46 @@
+---
+# This playbook contains all actions that will be run on "local" host.
+ 
+# sudo apt-get update
+- name: Update apt packages
+  apt:
+    update_cache: yes
+  tags:
+    - system
+
+# sudo apt-get install *
+- name: Install apt packages
+  become: true
+  apt:
+    name:
+      - curl
+      - python3-pip
+      - systemd
+    state: present
+    update_cache: yes
+  tags:
+    - system
+
+# Import setup tasks
+- name: Import setup tasks
+  include_tasks: "{{ item }}"
+  with_items:
+    - docker.yml
+    - airflow.yml
+    - jenkins.yml
+  tags:
+    - system
+ 
+# sudo apt-get autoclean
+- name: Remove useless apt packages from the cache
+  apt:
+    autoclean: yes
+  tags:
+    - system
+ 
+# sudo apt-get autoremove
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
+  tags:
+    - system

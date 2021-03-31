@@ -1,0 +1,10 @@
+---
+# This playbook contains docker actions that will be run on "remote" host.
+- name: Start a container
+  docker_container:
+    name: jenkins
+    image: jenkins/jenkins:lts
+    ports:
+      - "9980:8080"
+  tags:
+    - jenkins

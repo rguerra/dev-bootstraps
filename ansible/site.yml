@@ -1,0 +1,10 @@
+---
+# This playbook sets up whole stack.
+ 
+- name: Configurations to "remote" host
+  hosts: remote
+  gather_facts: no
+  remote_user: root
+  become: yes
+  roles:
+    - setup

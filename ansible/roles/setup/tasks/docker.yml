@@ -1,0 +1,107 @@
+---
+# This playbook contains docker actions that will be run on "remote" host.
+
+- name: Get Ubuntu version
+  shell: lsb_release -cs
+  register: ubuntu_version
+  tags:
+    - docker
+
+# TODO: Figure out how to use the ansible docker instead of a shell
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# - name: Add Docker s official GPG key
+#   apt_key:
+#     url: https://download.docker.com/linux/ubuntu/gpg
+#     state: present
+#   tags:
+#     - docker
+- name: Add Docker s official GPG key
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  tags:
+    - docker
+ 
+# sudo apt-key fingerprint 0EBFCD88
+- name: Verify that we have the key with the fingerprint
+  apt_key:
+    id: 0EBFCD88
+    state: present
+  tags:
+    - docker
+
+# sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+- name: Set up the stable repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
+    state: present
+    update_cache: yes
+  tags:
+    - docker
+ 
+# sudo apt-get update
+- name: Update apt packages
+  apt:
+    update_cache: yes
+  tags:
+    - docker
+ 
+# sudo apt-get install docker-ce=18.03.*
+- name: Install docker
+  apt:
+    name: ['docker-ce']
+    state: present
+    update_cache: yes
+  notify: Start docker on boot
+  tags:
+    - docker
+ 
+# sudo groupadd docker
+- name: Create "docker" group
+  group:
+    name: "{{ docker_group }}"
+    state: present
+  tags:
+    - docker
+ 
+# sudo usermod -aG docker ubuntu
+- name: Add remote "ubuntu" user to "docker" group
+  user:
+    name: "{{ remote_user }}"
+    group: "{{ docker_group }}"
+    append: yes
+  tags:
+    - docker
+- name: Installing docker python package
+  pip:
+    name:
+      - docker
+  tags:
+    - docker
+- name: Get the uname_s 
+  shell: uname -s
+  register: uname_s
+  tags:
+    - docker
+- name: Get the uname_m
+  shell: uname -m
+  register: uname_m
+  tags:
+    - docker
+- name: Download docker-compose
+  get_url:
+    url: "http://github.com/docker/compose/releases/download/1.23.1/docker-compose-{{ uname_s.stdout }}-{{ uname_m.stdout }}"
+    dest: /usr/local/bin/docker-compose
+    mode: 0550
+  tags:
+    - docker
+- name: Save docker-compose --version
+  shell: docker-compose --version
+  register: docker_compose_version
+  tags:
+    - docker
+- name: Debug docker-compose --version
+  debug:
+    var: docker_compose_version
+  tags:
+    - docker
+
+
