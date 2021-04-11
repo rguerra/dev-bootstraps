@@ -1,0 +1,15 @@
+---
+- include_vars: 
+    file: secrets.yml
+
+- name: Download Micro Workhorses Git
+  become: yes
+  git:
+     repo: https://{{gituser}}:{{gittoken}}@github.com/rguerra/micro-workhorses.git
+     dest: "/home/{{remote_user}}/micro-workhorses" 
+- name: Download Jupy Git
+  become: yes
+  git:
+     repo: https://{{gituser}}:{{gittoken}}@github.com/rguerra/jupy.git
+     dest: "/home/{{remote_user}}/jupy" 
+

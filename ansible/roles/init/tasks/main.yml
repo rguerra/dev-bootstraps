@@ -1,25 +1,5 @@
 ---
 
-
-- name: Install base packages
-  apt: name={{ item }} state=present
-  with_items:
-    - bash-completion
-    - locales
-    - build-essential
-    - acl
-    - ntp
-    - htop
-    - git
-    - supervisor
-    - python-pip
-    - python3-pip
-  tags:
-    - packages
-- name: Upgrade pip
-  pip: name=pip state=latest
-  tags:
-    - packages
 - name: Create user
   user:
     name: "{{ remote_user }}"
@@ -40,3 +20,23 @@
     state: present
     manage_dir: yes
     key: " {{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: Install base packages
+  apt: name={{ item }} state=present
+  with_items:
+    - bash-completion
+    - locales
+    - build-essential
+    - acl
+    - ntp
+    - htop
+    - git
+    - supervisor
+    - python-pip
+    - python3-pip
+  tags:
+    - packages
+- name: Upgrade pip
+  pip: name=pip state=latest
+  tags:
+    - packages

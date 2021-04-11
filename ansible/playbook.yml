@@ -13,4 +13,5 @@
   roles:
     - init
     - docker
+    - gitrepos
 
