@@ -1,0 +1,13 @@
+[Unit]
+Description=JupyterLab Service
+After=network.target
+[Service]
+Type=simple
+PIDFile=/run/jupyterlab.pid
+ExecStart=/usr/local/bin/jupyter lab --no-browser
+User={{remote_user}}
+
+Restart=on-abort
+[Install]
+WantedBy=multi-user.target
+

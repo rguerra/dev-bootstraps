@@ -1,0 +1,50 @@
+---
+
+- name: Install base packages
+  apt: name={{ item }} state=present
+  with_items:
+    - bash-completion
+    - python3-dev
+    - python3-pip
+  tags:
+    - jupyterlab
+- name: Upgrade pip
+  pip: name=pip state=latest executable=pip3
+  tags:
+    - jupyterlab
+- name: Installing Jupyterlab
+  pip:
+    name: jupyterlab
+    executable: pip3
+- name: Create service 
+  template:
+    src: jupyterlab.j2
+    dest: /etc/systemd/system/jupyterlab.service
+    owner: "{{ remote_user}}"
+    group: "{{remote_user}}"
+- name: Start jupyter service
+  systemd:
+    name: jupyterlab.service
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+  tags: jupyterlab
+
+- name: Adding enabled site
+  template:
+    src: nginx_proxy.j2
+    dest: /etc/nginx/sites-available/lab
+#- name: ansible create directory example
+#  file:
+#    path: /etc/nginx/sites-enabled
+#    state: directory
+
+- name: Soft Link
+  file:
+    src: /etc/nginx/sites-available/lab
+    dest: /etc/nginx/sites-enabled/lab
+    state: link
+- name: restart nginx
+  service:
+      name: nginx
+      state: started

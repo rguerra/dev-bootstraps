@@ -13,5 +13,7 @@
   roles:
     - init
     - docker
-    - gitrepos
+    - nginx
+    - jupyterlab
+    #- gitrepos
 
