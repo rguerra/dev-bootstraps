@@ -1,9 +1,13 @@
 ---
 
+- include_vars: 
+    file: secrets.yml
+
 - name: Create user
   user:
     name: "{{ remote_user }}"
-    comment: "Used to deploy Django"
+    password: "{{ default_password }}"
+    comment: "For not using root"
     state: present
 - name: Create .ssh folder
   file:

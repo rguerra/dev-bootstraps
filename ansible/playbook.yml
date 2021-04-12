@@ -11,9 +11,9 @@
     - name: Update apt cache if needed.
       apt: update_cache=yes cache_valid_time=3600
   roles:
-    - init
-    - docker
-    - nginx
-    - jupyterlab
-    #- gitrepos
+    #- init
+    #- docker
+    #- nginx
+    #- jupyterlab
+    - gitrepos
 

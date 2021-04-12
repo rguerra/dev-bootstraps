@@ -4,7 +4,7 @@ After=network.target
 [Service]
 Type=simple
 PIDFile=/run/jupyterlab.pid
-ExecStart=/usr/local/bin/jupyter lab --no-browser
+ExecStart=/usr/local/bin/jupyter lab --no-browser --NotebookApp.allow_origin='*' --notebook-dir='/home/{{remote_user}}' --NotebookApp.allow_remote_access=True --NotebookApp.allow_password_change=True
 User={{remote_user}}
 
 Restart=on-abort
