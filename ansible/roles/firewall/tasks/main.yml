@@ -1,0 +1,38 @@
+---
+
+- name: Set up authorized keys for the deployer user
+  authorized_key: 
+    user: "{{ remote_user }}" 
+    key: " {{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+- name: Install base packages
+  apt: name={{ item }} state=present
+  with_items:
+    - ufw
+  tags:
+    - firewall
+- name: Add IPV6 conf
+  lineinfile:
+    path: /etc/default/ufw
+    regex: '^IPV6='
+    line: IPV6=yes
+  tags:
+    - firewall
+- name: UFW default policies
+  command: "{{ item }}"
+  become: yes
+  become_user: root
+  with_items:
+    - ufw default deny incoming
+    - ufw default allow outgoing
+    - ufw allow ssh
+  tags:
+    - firewall
+- name: UFW Connections
+  command: "{{ item }}"
+  become: yes
+  become_user: root
+  with_items:
+    - ufw allow http
+    - ufw allow https
+  tags:
+    - firewall

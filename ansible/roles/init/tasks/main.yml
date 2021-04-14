@@ -2,29 +2,48 @@
 
 - include_vars: 
     file: secrets.yml
+- name: Make sure we have a 'wheel' group
+  group:
+    name: wheel
+    state: present
 
-- name: Create user
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Add sudoers users to wheel group
   user:
     name: "{{ remote_user }}"
     password: "{{ default_password }}"
-    comment: "For not using root"
+    groups: wheel
+    append: yes
     state: present
-- name: Create .ssh folder
-  file:
-    path: "/home/{{ remote_user}}/.ssh/"
-    state: directory
-    mode: 0755
-- name: create empty file
-  file:
-    path: "/home/{{ remote_user}}/.ssh/authorized_keys"
-    state: touch
-- name: Adding authorized key
-  authorized_key:
-    user: "{{ remote_user }}"
-    state: present
-    manage_dir: yes
-    key: " {{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    createhome: yes
+    shell: /bin/bash
+#- name: Adding authorized key
+#  authorized_key:
+#    user: "{{ remote_user }}"
+#    state: present
+#    manage_dir: yes
+#    key: " {{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
+- name: Copy tmux config
+  template:
+    src: tmux_conf.j2
+    dest: "/home/{{ remote_user }}/.tmux.conf"
+    owner: "{{ remote_user }}"
+
+- name: Set up authorized keys for the deployer user
+  authorized_key: 
+    user: "{{ remote_user }}" 
+    key: " {{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+  #  key="{{item}}"
+  #with_file:
+  #  - /home/railsdev/.ssh/id_rsa.pub
 - name: Install base packages
   apt: name={{ item }} state=present
   with_items:
@@ -38,6 +57,14 @@
     - supervisor
     - python3-dev
     - python3-pip
+    - r-base
+  tags:
+    - packages
+- name: Install user base packages
+  apt: name={{ item }} state=present
+  become: "{{ remote_user }}"
+  with_items:
+    - bash-completion
   tags:
     - packages
 - name: Upgrade pip

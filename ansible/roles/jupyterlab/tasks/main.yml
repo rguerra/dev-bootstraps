@@ -17,23 +17,28 @@
     name: jupyterlab
     executable: pip3
 - name: Create service 
+  become: yes
+  become_user: root
   template:
     src: jupyterlab.j2
     dest: /etc/systemd/system/jupyterlab.service
-    owner: "{{ remote_user}}"
-    group: "{{remote_user}}"
+    owner: "{{ remote_user }}"
 - name: Start jupyter service
   systemd:
     name: jupyterlab.service
     daemon_reload: yes
     enabled: yes
-    state: restarted
+    state: started
+  become: yes
+  become_user: root
   tags: jupyterlab
 
 - name: Adding enabled site
   template:
     src: nginx_proxy.j2
     dest: /etc/nginx/sites-available/lab
+  become: yes
+  become_user: root
 #- name: ansible create directory example
 #  file:
 #    path: /etc/nginx/sites-enabled
@@ -44,7 +49,11 @@
     src: /etc/nginx/sites-available/lab
     dest: /etc/nginx/sites-enabled/lab
     state: link
+  become: yes
+  become_user: root
 - name: restart nginx
   service:
       name: nginx
       state: restarted
+  become: yes
+  become_user: root

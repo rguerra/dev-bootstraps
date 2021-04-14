@@ -1,6 +1,6 @@
 
 upstream notebook {
-    server localhost:8888;
+    server localhost:8888 fail_timeout=0;
 }
     server{
         listen 80;
