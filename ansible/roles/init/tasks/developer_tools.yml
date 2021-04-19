@@ -1,0 +1,24 @@
+---
+- name: Install base packages
+  apt: name={{ item }} state=present
+  with_items:
+    - bash-completion
+    - locales
+    - build-essential
+    - acl
+    - ntp
+    - htop
+    - git
+    - vim
+    - tree
+    - supervisor
+  tags:
+    - developer_tools
+- name: Install user base packages
+  apt: name={{ item }} state=present
+  become: "{{ remote_user }}"
+  with_items:
+    - bash-completion
+  tags:
+    - developer_tools
+

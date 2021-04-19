@@ -1,0 +1,59 @@
+---
+
+- name: Add the relevant GPG key
+  apt_key:
+    id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+    keyserver: keyserver.ubuntu.com
+    state: present
+  become: yes
+  become_user: root
+  tags:
+    - jupyterlab
+- name: repository | add cran-r
+  apt_repository: repo="deb http://cran.rstudio.com/bin/linux/ubuntu {{ansible_distribution_release}}/" state=present update_cache=true
+  become: yes
+  become_user: root
+
+- name: install r and devtools's dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - r-recommended
+    - libcurl4-gnutls-dev
+    - libxml2-dev
+    - libssl-dev
+  become: yes
+  become_user: root
+
+- name: install IRkernel's dependencies
+  command: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) install.packages('{{item}}', repos='http://cran.rstudio.com/')"
+  with_items:
+    - repr
+    - IRdisplay
+    - evaluate
+    - crayon
+    - pbdZMQ
+    - devtools
+    - uuid
+    - digest
+    - stringi
+  become: yes
+  become_user: root
+
+- name: install IRkernel
+  command: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) devtools::install_github('IRkernel/{{item}}')"
+  with_items:
+    - IRkernel
+  become: yes
+  become_user: root
+
+- name: install irkernel kernelspec for jupyter
+  #command: R --quiet -e "IRkernel::installspec(user = FALSE)"
+  command: R -e "IRkernel::installspec(user = FALSE)"
+  become: yes
+  become_user: root
+
+- name: install additional R packages
+  command: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) install.packages('{{item}}', repos='http://cran.rstudio.com/')"
+  with_items: '{{cran_packages}}'
+  become: yes
+  become_user: root

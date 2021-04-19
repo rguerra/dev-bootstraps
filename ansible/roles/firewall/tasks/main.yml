@@ -10,6 +10,7 @@
     - ufw
   tags:
     - firewall
+  ignore_errors: True
 - name: Add IPV6 conf
   lineinfile:
     path: /etc/default/ufw

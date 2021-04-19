@@ -1,3 +1,5 @@
+
+ansible/library/*
 # Local .terraform directories
 **/.terraform/*
 
