@@ -1,4 +1,4 @@
-ansible_distribution_release: bionic-cran40
+ansible_distribution_release: focal-cran40
 miniconda_version: 4.9.2
 #conda_installer: Miniconda3-{{miniconda_version}}-Linux-x86_64.sh
 conda_installer: Miniconda3-py39_{{miniconda_version}}-Linux-x86_64.sh

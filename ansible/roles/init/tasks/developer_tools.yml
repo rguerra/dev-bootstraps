@@ -6,12 +6,9 @@
     - locales
     - build-essential
     - acl
-    - ntp
     - htop
     - git
     - vim
-    - tree
-    - supervisor
   tags:
     - developer_tools
 - name: Install user base packages
