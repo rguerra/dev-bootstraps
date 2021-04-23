@@ -1,0 +1,114 @@
+#ansible_distribution_release: focal-cran40
+#miniconda_version: 4.9.2
+#conda_installer: Miniconda3-{{miniconda_version}}-Linux-x86_64.sh
+#conda_installer: Miniconda3-py39_{{miniconda_version}}-Linux-x86_64.sh
+cran_ubuntu_version: bionic-cran40
+conda_installer: Anaconda3-2020.02-Linux-x86_64.sh
+conda_prefix: /opt/conda
+conda_checksum: "md5:17600d1f12b2b047b62763221f29f2bc"
+conda_config:
+  channels:
+    - conda-forge
+    - pytorch
+    - defaults
+  show_channel_urls: yes
+conda_packages: []
+#  - numpy
+#  - scipy
+#  - matplotlib
+#  - cython
+#  - h5py
+#  - scikit-learn
+#  - scikit-image
+#  - pandas
+#  - sympy
+#  - pillow
+#  - seaborn
+#  - patsy
+#  - statsmodels
+#  - networkx
+#  - dask
+#  - blaze
+#  - odo
+#  - altair
+#  - mkl-service # needed for pymc3
+#  - pymc3
+#  - pytorch
+#  - torchvision  
+
+pip_packages: []
+#  - brewer2mpl
+#  - ipythonblocks
+#  - plotly
+#  - tensorflow
+#  - vdom
+  
+jupyterlab_extensions:
+  - "@jupyterlab/hub-extension"
+  - "@jupyterlab/geojson-extension"
+  - "@jupyterlab/plotly-extension"
+  # - "@jupyter-widgets/jupyterlab-manager"
+
+cran_packages:
+  - car
+  - ggplot2
+  - XML
+  - plyr
+  - randomForest
+  - Hmisc
+  - stringr
+  - RColorBrewer
+  - reshape
+  - reshape2
+  - RCurl
+  - devtools
+  - dplyr
+  - httr
+  - knitr
+  - packrat
+  - rmarkdown
+  - rvtest
+  - testit
+  - testthat
+  - tidyr
+  - shiny
+  - base64enc
+  - Cairo
+  - codetools
+  - table
+  - gridExtra
+  - gtable
+  - hexbin
+  - jpeg
+  - Lahman
+  - MASS
+  - PKI
+  - png
+  - microbenchmark
+  - mgcv
+  - mapproj
+  - maps
+  - maptools
+  - mgcv
+  - multcomp
+  - nycflights13
+  - quantreg
+  - javareconf
+  - rJava
+  - roxygen2
+  - RSQLite
+  - lattice
+  - nlme
+  - RCurl 
+  - RHTMLForms
+  - RJSONIO
+  - RSelenium
+  - rgl
+  - caret
+  - data.table
+  - parallel
+  - testthat
+  - rpart
+  - caret
+  - RTextTools
+  - XLSX

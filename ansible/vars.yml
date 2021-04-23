@@ -1,4 +1,4 @@
 ---
 docker_group: docker
-remote_user: rguerr
+default_user: rguerr
 

@@ -1,0 +1,101 @@
+---
+
+#- name: "[r.yml] Install base packages"
+#  apt: name={{ item }} state=present
+#  with_items:
+#    - libcurl4-openssl-dev
+#    - libssl-dev
+#    - libxml2-dev
+#    - libffi-dev
+#    - libxslt1-dev
+#    - libjpeg8-dev
+#    - zlib1g-dev
+#    #- r-base
+#    - r-recommended
+#    - r-base-core
+#    #- r-base
+#    #- r-base-dev
+#    #- r-cran-littler
+#  become: yes
+#  become_user: root
+
+#- name: "[r.yml] UN-Install R"
+#  shell: conda uninstall r
+#  environment:
+#    #PATH: "{{ conda_prefix }}/bin:$PATH"
+#    SHELL: /bin/bash
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  become_user: root
+#  ignore_errors: yes
+#- name: "[r.yml] Install R"
+#  shell: conda install r-base>=4.0 -y
+#  environment:
+#    #PATH: "{{ conda_prefix }}/bin:$PATH"
+#    SHELL: /bin/bash
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  become_user: root
+
+# This causes the libreadline not found ERROR
+#- name: "[r.yml] Install R-Recommended and r-irKernel"
+#  shell: conda install -c r r-recommended r-irkernel -y
+#  environment:
+#    SHELL: /bin/bash
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  become_user: root
+############################################
+
+  
+
+#- name: "[r.yml] Installing R Packages" 
+#  shell: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) install.packages('{{item}}', repos='http://cran.rstudio.com/')"
+#  #environment:
+#  #  PATH: "{{ conda_prefix }}/bin:$PATH"
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  with_items:
+#    - repr
+#    - IRdisplay
+#    - evaluate
+#    - crayon
+#    - pbdZMQ
+#    - devtools
+#    - uuid
+#    - digest
+#    - stringi
+#  become: yes
+#  become_user: root
+
+#- name: "[r.yml] Installing IRkernel"
+#  shell: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) devtools::install_github('IRkernel/{{item}}')"
+#  with_items:
+#    - IRkernel
+#  become: yes
+#  become_user: root
+
+- name: "[r.yml] Installing irkernel kernelspec for jupyter"
+#  #command: R --quiet -e "IRkernel::installspec(user = FALSE)"
+  shell: R -e "IRkernel::installspec(user = FALSE)"
+  become: yes
+  become_user: root
+
+#- name: install additional R packages
+#  command: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) install.packages('{{item}}', repos='http://cran.rstudio.com/')"
+#  with_items: '{{cran_packages}}'
+#  become: yes
+#  become_user: root
+
+#- name: Upgrading Installing R Kernel
+#  shell: conda install -c r r-essentials -y
+#  #environment:
+#  #  PATH: "{{ conda_prefix }}/bin:$PATH"
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  become_user: root

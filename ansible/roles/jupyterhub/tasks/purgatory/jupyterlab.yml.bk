@@ -7,8 +7,16 @@
 #    executable: /bin/sh
 #  become: yes
 #  become_user: root
+#- name: Installing Tornado
+#  shell: conda install tornado=5.1.1 -y
+#  #environment:
+#  #  PATH: "{{ conda_prefix }}/bin:$PATH"
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  become_user: root
 - name: Installing Jupyterlab 
-  shell: conda install jupyterlab -y
+  shell: conda install jupyterlab=1.1.0 -y
   #environment:
   #  PATH: "{{ conda_prefix }}/bin:$PATH"
   args:

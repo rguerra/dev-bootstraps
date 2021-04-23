@@ -2,7 +2,7 @@
 
 - name: Set up authorized keys for the deployer user
   authorized_key: 
-    user: "{{ remote_user }}" 
+    user: "{{ default_user }}" 
     key: " {{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 - name: Install base packages
   apt: name={{ item }} state=present
@@ -35,5 +35,6 @@
   with_items:
     - ufw allow http
     - ufw allow https
+    - ufw allow 10000
   tags:
     - firewall

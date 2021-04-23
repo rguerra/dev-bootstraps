@@ -7,12 +7,13 @@
   vars_files:
     - vars.yml
   pre_tasks:
-    - name: Update apt cache if needed.
+    - name: "[PRE-TASK] Update apt cache if needed."
       apt: update_cache=yes cache_valid_time=3600
   roles:
     - { role: 'init', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
-    - { role: 'nginx', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
+    # Setting nginx on top of JupyterLab and JupyterHub is causing problems.
+    #- { role: 'nginx', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
     - { role: 'jupyterlab', tags: 'init', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
-    #- { role: 'gitrepos', tags: 'init', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
-    #- { role: 'firewall', tags: 'firewall', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+    - { role: 'gitrepos', tags: 'init', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+    - { role: 'firewall', tags: 'firewall', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
 

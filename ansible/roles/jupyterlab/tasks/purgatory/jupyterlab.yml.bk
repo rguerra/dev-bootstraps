@@ -1,0 +1,63 @@
+---
+#- name: conda update -n base -c defaults conda
+#  shell: conda update -n base -c defaults conda -y
+#  environment:
+#    PATH: "{{ conda_prefix }}/bin:$PATH"
+#  args:
+#    executable: /bin/sh
+#  become: yes
+#  become_user: root
+#- name: Installing Tornado
+#  shell: conda install tornado=5.1.1 -y
+#  #environment:
+#  #  PATH: "{{ conda_prefix }}/bin:$PATH"
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  become_user: root
+- name: Installing Jupyterlab 
+  shell: conda install jupyterlab=1.1.0 -y
+  #environment:
+  #  PATH: "{{ conda_prefix }}/bin:$PATH"
+  args:
+    executable: /bin/bash
+  become: yes
+  become_user: root
+- name: Installing npmjs for jupyterlab
+  shell: conda install nodejs -y
+  #environment:
+  #  PATH: "{{ conda_prefix }}/bin:$PATH"
+  args:
+    executable: /bin/bash
+  become: yes
+  become_user: root
+
+#- name: Installing Jupyterlab 
+#  shell: source /etc/bash.bashrc && conda install -c conda-forge jupyterlab
+#  args:
+#    executable: /bin/bash
+#- name: Installing npmjs doe jupyterlab
+#  shell: source /etc/bash.bashrc && conda install -c conda-forge nodejs
+#  args:
+#    executable: /bin/bash
+
+#- name: conda install npmjs for jupyterlab
+#  conda: name=nodejs state=present
+#  become: true
+- name: Create service 
+  become: yes
+  become_user: root
+  template:
+    src: jupyterlab.j2
+    dest: /etc/systemd/system/jupyterlab.service
+    #owner: "{{ remote_user }}"
+
+- name: Start jupyter service
+  systemd:
+    name: jupyterlab.service
+    daemon_reload: yes
+    enabled: yes
+    state: started
+  become: yes
+  become_user: root
+  tags: jupyterlab

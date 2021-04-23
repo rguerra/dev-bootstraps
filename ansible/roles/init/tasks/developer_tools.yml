@@ -1,21 +1,38 @@
 ---
-- name: Install base packages
+- name: "[developer_tools.yml] Install Global base packages"
   apt: name={{ item }} state=present
   with_items:
     - bash-completion
-    - locales
-    - build-essential
-    - acl
+    - python3-pip
+    #- locales
+    - gzip
+    - tar
+    #- acl
     - htop
     - git
     - vim
+    - build-essential
+    - libssl-dev
+    - libffi-dev
+    - python3-dev
   tags:
     - developer_tools
-- name: Install user base packages
-  apt: name={{ item }} state=present
-  become: "{{ remote_user }}"
-  with_items:
-    - bash-completion
-  tags:
-    - developer_tools
+    
+- name: "[developer_tools.yml] Upgrade"
+  apt: upgrade=dist force_apt_get=yes
 
+#- name: "[deveolper_tools.yml] Install user base packages"
+#  apt: name={{ item }} state=present
+#  become: "{{ default_user }}"
+#  with_items:
+#    - bash-completion
+#  tags:
+#    - developer_tools
+
+#- name: Upgrade pip
+#  pip: name=pip state=latest executable=pip3
+
+#- name: Installing docker python library
+#  pip:
+#    name: docker
+#    executable: pip3

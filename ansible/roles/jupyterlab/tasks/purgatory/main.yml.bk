@@ -1,0 +1,6 @@
+---
+#- include_tasks: jupyterlab.yml
+#- include_tasks: conda.yml
+#- include_tasks: r.yml
+- include_tasks: nginx.yml
+

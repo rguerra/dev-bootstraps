@@ -70,14 +70,23 @@
   become: yes
   become_user: root
 
-- name: install irkernel kernelspec for jupyter
-  #command: R --quiet -e "IRkernel::installspec(user = FALSE)"
-  command: R -e "IRkernel::installspec(user = FALSE)"
-  become: yes
-  become_user: root
+#- name: install irkernel kernelspec for jupyter
+#  #command: R --quiet -e "IRkernel::installspec(user = FALSE)"
+#  command: R -e "IRkernel::installspec(user = FALSE)"
+#  become: yes
+#  become_user: root
 
-- name: install additional R packages
-  command: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) install.packages('{{item}}', repos='http://cran.rstudio.com/')"
-  with_items: '{{cran_packages}}'
-  become: yes
-  become_user: root
+#- name: install additional R packages
+#  command: R --quiet -e "if (! '{{item}}' %in% installed.packages()[,'Package']) install.packages('{{item}}', repos='http://cran.rstudio.com/')"
+#  with_items: '{{cran_packages}}'
+#  become: yes
+#  become_user: root
+
+#- name: Upgrading Installing R Kernel
+#  shell: conda install -c r r-essentials -y
+#  #environment:
+#  #  PATH: "{{ conda_prefix }}/bin:$PATH"
+#  args:
+#    executable: /bin/bash
+#  become: yes
+#  become_user: root

@@ -1,6 +1,20 @@
 ---
-- include_tasks: conda.yml
-- include_tasks: jupyterlab.yml
-- include_tasks: nginx.yml
-- include_tasks: r.yml
 
+- name: "[jupyterlab.yml] pull image"
+  docker_image:
+    name: jupyter/datascience-notebook
+
+# docker run -d -p 10000:8888 -e JUPYTER_ENABLE_LAB=yes -v /home/{{ remote_user }}:/home/jovyan/work jupyter/datascience-notebook
+
+- name: "[jupyterlab.yml] Docker Run"
+  docker_container:
+    name: jupyterlab
+    image: jupyter/datascience-notebook
+    cleanup: yes
+    detach: yes
+    ports:
+      - "10000:8888"
+    env:
+      JUPYTER_ENABLE_LAB: "yes"
+    volumes:
+      - "/home/{{ default_user }}/work:/home/jovyan/work"

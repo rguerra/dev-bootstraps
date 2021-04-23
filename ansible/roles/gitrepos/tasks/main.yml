@@ -2,14 +2,33 @@
 - include_vars: 
     file: secrets.yml
 
+- name: Create work/ dir 
+  file:
+    path: "/home/{{ default_user }}/work"
+    state: directory
+
 - name: Download Micro Workhorses Git
   become: yes
   git:
      repo: https://{{gituser}}:{{gittoken}}@github.com/rguerra/micro-workhorses.git
-     dest: "/home/{{remote_user}}/micro-workhorses" 
+     dest: "/home/{{default_user}}/work/micro-workhorses" 
+  become: yes
+  become_user: root
+
 - name: Download Jupy Git
   become: yes
   git:
      repo: https://{{gituser}}:{{gittoken}}@github.com/rguerra/jupy.git
-     dest: "/home/{{remote_user}}/jupy" 
+     dest: "/home/{{default_user}}/work/jupy" 
+  become: yes
+  become_user: root
 
+- name: "Fix permissions"
+  file:
+    path: "/home/{{ default_user }}/work"
+    owner: "{{ default_user }}"
+    mode: 0775
+    state: directory
+    recurse: yes
+  become: yes
+  become_user: root

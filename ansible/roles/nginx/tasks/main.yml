@@ -1,7 +1,7 @@
 ---
-- name: ensure nginx is at the latest version
+- name: "[nginx.yml] Installing nginx"
   apt: name=nginx state=latest
-- name: start nginx
+- name: "[nginx.yml] start nginx"
   service:
       name: nginx
       state: started
