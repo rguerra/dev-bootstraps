@@ -1,0 +1,42 @@
+---
+- name: "[nodejs.yml] Get Ubuntu version"
+  shell: lsb_release -cs
+  register: ubuntu_version
+
+# Look into github.com/nodesource/distributions
+- name: "[nodejs.yml] Verify that we have the key with the fingerprint"
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+  become: yes
+  become_user: root
+- name: "[nodejs.yml] Set up the stable repository"
+  apt_repository:
+    repo: "deb [arch=amd64] https://deb.nodesource.com/node_16.x {{ ubuntu_version.stdout }} main"
+    state: present
+    update_cache: yes
+  become: yes
+  become_user: root
+
+- name: "[nodejs.yml] Update apt packages"
+  apt:
+    update_cache: yes
+  become: yes
+  become_user: root
+    
+- name: "[nodejs.yml] Install nodejs"
+  apt:
+    name: nodejs
+    state: present
+    update_cache: yes
+  become: yes
+  become_user: root
+
+- name: "[nodejs.yml] Use npm"
+  npm:
+    global: yes
+    name: "{{ item }}"
+  with_items:
+    - firebase-tools
+  become: yes
+  become_user: root
