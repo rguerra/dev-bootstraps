@@ -32,3 +32,14 @@
     recurse: yes
   become: yes
   become_user: root
+
+- name: "Git config"
+  git_config:
+    name: user.name
+    scope: global
+    value: rguerra
+- name: "Git config"
+  git_config:
+    name: user.email
+    scope: global
+    value: rguerr@www-1

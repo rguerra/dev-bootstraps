@@ -1,6 +1,12 @@
 
 # dev-bootstrap
 
+## Tools
+
+### s3cmd
+https://docs.digitalocean.com/products/spaces/resources/s3cmd/
+
+
 
 ## Ansible
 The purpose of ansible is to:
@@ -39,3 +45,5 @@ https://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digit
 
 #### Kubernetes cluster
 https://www.digitalocean.com/community/tutorials/webinar-series-building-blocks-for-doing-ci-cd-with-kubernetes
+
+
