@@ -36,3 +36,10 @@
 #  pip:
 #    name: docker
 #    executable: pip3
+
+- name: Installing docker python library
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items:
+    - jupytext

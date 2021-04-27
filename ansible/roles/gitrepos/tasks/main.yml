@@ -11,7 +11,17 @@
   become: yes
   git:
      repo: https://{{gituser}}@github.com/rguerra/micro-workhorses.git
-     dest: "/home/{{default_user}}/work/micro-workhorses" 
+     dest: "/home/{{default_user}}/micro-workhorses" 
+  become: yes
+  become_user: root
+
+- name: "Fix permissions"
+  file:
+    path: "/home/{{ default_user }}/micro-workhorses"
+    owner: "{{ default_user }}"
+    mode: 0775
+    state: directory
+    recurse: yes
   become: yes
   become_user: root
 
