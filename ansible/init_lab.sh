@@ -6,4 +6,4 @@ if [ $# -eq 0 ]
     export VERBOSE=$1
 fi
 #ansible-playbook -vvv site.yml -i hosts.yml
-ansible-playbook $VERBOSE -i hosts playbook.yml --vault-password-file ~/.vault_pass.txt
+ansible-playbook $VERBOSE -i lab_hosts lab_playbook.yml --vault-password-file ~/.vault_pass.txt

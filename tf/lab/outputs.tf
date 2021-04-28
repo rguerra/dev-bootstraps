@@ -3,9 +3,9 @@
 resource "local_file" "AnsibleInventory" {
  content = templatefile("inventory.tmpl",
  {
-  www-1-ip = digitalocean_droplet.www-1.ipv4_address,
-  www-1-id = digitalocean_droplet.www-1.id,
+  lab-ip = digitalocean_droplet.lab.ipv4_address,
+  lab-id = digitalocean_droplet.lab.id,
  }
  )
- filename = "../ansible/hosts"
+ filename = "../../ansible/lab_hosts"
 }

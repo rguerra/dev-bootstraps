@@ -2,10 +2,10 @@
 - include_vars: 
     file: secrets.yml
 
-- name: Create work/ dir 
-  file:
-    path: "/home/{{ default_user }}/work"
-    state: directory
+#- name: Create work/ dir 
+#  file:
+#    path: "/home/{{ default_user }}/work"
+#    state: directory
 
 - name: Download Micro Workhorses Git
   become: yes
@@ -29,13 +29,13 @@
   become: yes
   git:
      repo: https://{{gituser}}@github.com/rguerra/jupy.git
-     dest: "/home/{{default_user}}/work/jupy" 
+     dest: "/home/{{default_user}}/jupy" 
   become: yes
   become_user: root
 
 - name: "Fix permissions"
   file:
-    path: "/home/{{ default_user }}/work"
+    path: "/home/{{ default_user }}/jupy"
     owner: "{{ default_user }}"
     mode: 0775
     state: directory

@@ -17,4 +17,4 @@
     env:
       JUPYTER_ENABLE_LAB: "yes"
     volumes:
-      - "/home/{{ default_user }}/work:/home/jovyan/work"
+      - "/home/{{ default_user }}/jupy:/home/jovyan/work"
