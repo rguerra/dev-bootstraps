@@ -8,6 +8,7 @@
     - gzip
     - tar
     #- acl
+    - net-tools
     - htop
     - git
     - vim
