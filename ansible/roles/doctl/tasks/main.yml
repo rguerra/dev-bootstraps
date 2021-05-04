@@ -1,6 +1,13 @@
 ---
 - include_vars: 
     file: secrets.yml
+- name: "Install Global base packages"
+  apt: name={{ item }} state=present
+  with_items:
+    - s3cmd
+    - awscli
+  become: yes
+  become_user: root 
 - name: Install doctl
   snap:
     name:
@@ -28,4 +35,11 @@
     src: doctl_login.j2
     dest: "/home/{{ default_user }}/doctl_login.sh"
     owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
+- name: Adding script to s3cmd configuration
+  template:
+    src: spaces_configuration.j2
+    dest: "/home/{{ default_user }}/spaces_configuration.sh"
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
 
