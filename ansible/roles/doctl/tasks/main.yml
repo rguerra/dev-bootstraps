@@ -1,0 +1,31 @@
+---
+- include_vars: 
+    file: secrets.yml
+- name: Install doctl
+  snap:
+    name:
+      - doctl
+  become: yes
+  become_user: root 
+- name: Creates config directory
+  file:
+      path: "/home/{{ default_user }}/.config"
+      state: directory
+- name: Creates docker directory
+  file:
+      path: "/home/{{ default_user }}/.config/docker"
+      state: directory
+- name: doctl init
+  shell: "doctl auth init -t {{ access_token }}"
+
+- name: more doctl stuff
+  shell: "snap connect doctl:dot-docker"
+  become: yes
+  become_user: root
+
+- name: Adding script to docker login
+  template:
+    src: doctl_login.j2
+    dest: "/home/{{ default_user }}/doctl_login.sh"
+    owner: "{{ default_user }}"
+
