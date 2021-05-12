@@ -13,7 +13,7 @@
     - { role: 'init', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
     - { role: 'gitrepos', tags: 'init', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
     - { role: 'jupyterlab', tags: 'init', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
-#    - { role: 'firewall', tags: 'firewall', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+#   - { role: 'firewall', tags: 'firewall', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
     - { role: 'nodejs', tags: 'nodejs', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
     - { role: 'doctl', tags: 'doctl', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
 

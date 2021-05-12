@@ -38,5 +38,6 @@
     name: "{{ item }}"
   with_items:
     - firebase-tools
+    - live-server
   become: yes
   become_user: root
