@@ -110,5 +110,10 @@
     var: docker_compose_version
   tags:
     - docker
-
+- name: "[docker.yml] Add docker-compose to docker group"
+  file:
+    path: /usr/local/bin/docker-compose
+    owner: "{{ default_user }}"
+    group: docker
+    mode : '0755'
 
