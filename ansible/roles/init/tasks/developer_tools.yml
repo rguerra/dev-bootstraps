@@ -11,7 +11,7 @@
     - net-tools
     - htop
     - git
-    - vim
+    #- vim
     - build-essential
     - libssl-dev
     - libffi-dev

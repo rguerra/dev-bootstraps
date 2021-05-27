@@ -1,0 +1,58 @@
+
+
+
+#- block:
+#  - name: Install neovim python dependencies
+#    apt: name={{ item }} state=present
+#    with_items:
+#      - software-properties-common
+#      - python3-dev
+#      - python3-pip
+#  - name: Install you complete me dependencies
+#    apt: name={{ item }} state=present
+#    with_items: 
+#      - build-essential
+#      - cmake
+#  become: true
+#  become: true
+#  become_user: root
+
+# Install neovim
+- block:
+  - name: Add neovim ppa
+    apt_repository: repo="ppa:neovim-ppa/unstable" state=present
+
+  - name: Install neovim from ppa
+    apt: name="neovim" state=present
+
+  - name: use nvim for vi
+    alternatives: name=vi path=/usr/bin/nvim
+  - name: use nvim for vim
+    alternatives: name=vim path=/usr/bin/nvim
+  - name: use nvim for editor
+    alternatives: name=editor path=/usr/bin/nvim
+
+
+  become: true
+  become_user: root
+
+- name: Adding .vimrc file
+  template:
+    src: vimrc.j2
+    dest: "/home/{{ default_user }}/.vimrc"
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
+
+# Install vim-plug
+- block:
+  - name: "Make nvim/autoload directory"
+    file: path="/home/{{ default_user }}/.local/share/nvim/site/autoload" state=directory
+
+  - name: Install vim-plug
+    get_url:
+      url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      dest: "/home/{{ default_user }}/.local/share/nvim/site/autoload/plug.vim"
+      force: yes
+
+  - name: Install vim plugins
+    command: nvim "+silent! PlugInstall!" +qall!

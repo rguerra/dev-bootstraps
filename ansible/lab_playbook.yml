@@ -16,5 +16,6 @@
 #   - { role: 'firewall', tags: 'firewall', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
     - { role: 'nodejs', tags: 'nodejs', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
     - { role: 'doctl', tags: 'doctl', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+    - { role: 'vim', tags: 'vim', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
 
 
