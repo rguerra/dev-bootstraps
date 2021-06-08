@@ -1,0 +1,51 @@
+ Installing vim-polyglot
+ "Plug 'sheerun/vim-polyglot'
+ "syntax on
+
+ " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+ Plug 'junegunn/vim-easy-align'
+
+ " Any valid git URL is allowed
+ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+
+ " On-demand loading
+ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+ " Git
+ Plug 'tpope/vim-fugitive'
+
+ " Code completion
+ Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+ " Code commenter
+ Plug 'preservim/nerdcommenter'
+ "
+ " Syntax highlighting
+ Plug 'dense-analysis/ale'
+
+ " NERDTree
+ Plug 'preservim/nerdtree'
+ Plug 'jistr/vim-nerdtree-tabs'
+
+
+ " Statusbar
+ Plug 'itchyny/lightline.vim'
+ "
+ " Finder
+ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+ Plug 'junegunn/fzf.vim'
+
+ " File finder
+ Plug 'vifm/vifm.vim'
+
+ " Theme
+ Plug 'morhetz/gruvbox'
+
+ " Tabs
+ Plug 'ap/vim-buftabline'
+ " Initialize plugin system
+ call plug#end()
+
+ "set background=dark                                                               
+ colorscheme minimalist         " Change a colorscheme

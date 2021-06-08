@@ -36,6 +36,18 @@
   become: true
   become_user: root
 
+- name: Creates nvim directory
+  file:
+    path: "/home/{{ default_user }}/.config/nvim"
+    state: directory
+
+- name: Adding vim.init file
+  template:
+    src: viminit.j2
+    dest: "/home/{{ default_user }}/.config/nvim/init.vim"
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
+
 - name: Adding .vimrc file
   template:
     src: vimrc.j2
