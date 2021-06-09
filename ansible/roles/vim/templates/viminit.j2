@@ -1,4 +1,22 @@
- Installing vim-polyglot
+
+ " Specify a directory for plugins
+ " - For Neovim: stdpath('data') . '/plugged'
+ " - Avoid using standard Vim directory names like 'plugin'
+ call plug#begin('~/.vim/plugged')
+
+ " Make sure you use single quotes
+
+ " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+ Plug 'junegunn/vim-easy-align'
+
+ " Any valid git URL is allowed
+ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+
+ " On-demand loading
+ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+ "Installing vim-polyglot
  "Plug 'sheerun/vim-polyglot'
  "syntax on
 
@@ -47,5 +65,16 @@
  " Initialize plugin system
  call plug#end()
 
- "set background=dark                                                               
- colorscheme minimalist         " Change a colorscheme
+
+syntax on                  " Enable syntax highlighting.
+filetype plugin indent on  " Enable file type based indentation.
+
+set autoindent             " Respect indentation when starting a new line.
+set expandtab              " Expand tabs to spaces. Essential in Python.
+set tabstop=4              " Number of spaces tab is counted for.
+set shiftwidth=4           " Number of spaces to use for autoindent.
+set background=dark                                                               
+
+set backspace=2            " Fix backspace behavior on most terminals.
+colorscheme murphy         " Change a colorscheme.
+
