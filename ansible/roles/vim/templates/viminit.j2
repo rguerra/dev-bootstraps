@@ -12,23 +12,19 @@
  " Any valid git URL is allowed
  Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
-
  " On-demand loading
  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
- "Installing vim-polyglot
- "Plug 'sheerun/vim-polyglot'
- "syntax on
+ " NERDTree
+ Plug 'preservim/nerdtree'
+ Plug 'jistr/vim-nerdtree-tabs'
+
 
  " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
  Plug 'junegunn/vim-easy-align'
 
  " Any valid git URL is allowed
  Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-
- " On-demand loading
- Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
  " Git
  Plug 'tpope/vim-fugitive'
@@ -38,18 +34,10 @@
 
  " Code commenter
  Plug 'preservim/nerdcommenter'
- "
- " Syntax highlighting
- Plug 'dense-analysis/ale'
-
- " NERDTree
- Plug 'preservim/nerdtree'
- Plug 'jistr/vim-nerdtree-tabs'
-
 
  " Statusbar
  Plug 'itchyny/lightline.vim'
- "
+
  " Finder
  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
  Plug 'junegunn/fzf.vim'
@@ -62,11 +50,19 @@
 
  " Tabs
  Plug 'ap/vim-buftabline'
+
+ "Installing vim-polyglot
+ "Plug 'sheerun/vim-polyglot'
+ "syntax on
+
+ " Syntax highlighting
+ "Plug 'dense-analysis/ale'
+
  " Initialize plugin system
  call plug#end()
 
 
-syntax on                  " Enable syntax highlighting.
+"syntax on                  " Enable syntax highlighting.
 filetype plugin indent on  " Enable file type based indentation.
 
 set autoindent             " Respect indentation when starting a new line.
@@ -76,5 +72,5 @@ set shiftwidth=4           " Number of spaces to use for autoindent.
 set background=dark                                                               
 
 set backspace=2            " Fix backspace behavior on most terminals.
-colorscheme murphy         " Change a colorscheme.
+colorscheme ron            " Change a colorscheme.
 
