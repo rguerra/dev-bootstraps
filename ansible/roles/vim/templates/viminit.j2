@@ -58,6 +58,10 @@
  " Syntax highlighting
  "Plug 'dense-analysis/ale'
 
+ Plug 'yuezk/vim-js'
+
+ Plug 'maxmellon/vim-jsx-pretty'
+
  " Initialize plugin system
  call plug#end()
 
@@ -74,3 +78,20 @@ set background=dark
 set backspace=2            " Fix backspace behavior on most terminals.
 colorscheme ron            " Change a colorscheme.
 
+" open new split panes to right and below
+set splitright
+set splitbelow
+
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://bash
+      resize 10
+      endfunction
+
+noremap <c-n> :call OpenTerminal()<CR>
