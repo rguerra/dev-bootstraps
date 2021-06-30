@@ -74,6 +74,7 @@ set expandtab              " Expand tabs to spaces. Essential in Python.
 set tabstop=4              " Number of spaces tab is counted for.
 set shiftwidth=4           " Number of spaces to use for autoindent.
 set background=dark                                                               
+set number
 
 set backspace=2            " Fix backspace behavior on most terminals.
 colorscheme ron            " Change a colorscheme.
@@ -95,3 +96,5 @@ function! OpenTerminal()
       endfunction
 
 noremap <c-n> :call OpenTerminal()<CR>
+
+
