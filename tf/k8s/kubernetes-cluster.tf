@@ -14,4 +14,6 @@ resource "digitalocean_kubernetes_cluster" "mox13-k8s" {
 output "Kubernetes_master" {
   value = digitalocean_kubernetes_cluster.mox13-k8s.endpoint
 }
-
+output "cluster-id" {
+  value = "${digitalocean_kubernetes_cluster.mox13-k8s.id}"
+  }
