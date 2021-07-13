@@ -1,0 +1,68 @@
+
+---
+- name: Include k8s variables
+  include_vars:
+    file: "k8s_vars.yml"
+- name: "Get Ubuntu version"
+  shell: lsb_release -cs
+  register: ubuntu_version
+- debug: 
+    msg: "{{ ubuntu_version.stdout }}"
+- name: Add an apt signing key for Kubernetes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+- name: Add Kubernetes Repository 
+  apt_repository: 
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present 
+    filename: kubernetes
+    mode: 0600    
+#- name: Adding apt repository for K8s
+#  apt_repository:
+#    #repo: "deb http://apt/kubernetes.io/ kubernetes-{{ ubuntu_version.stdout }}  main"
+#    repo: "deb http://apt/kubernetes.io/ kubernetes-focal  main"
+#    state: present
+#    filename: kubernetes
+#    mode: 0600
+#  become: true
+#  become_user: root
+
+#- name: "Update apt packages"
+#  apt:
+#    update_cache: yes
+#  become: yes
+#  become_user: root
+
+- name: Install Kubernetes binaries
+  apt:
+    name: kubectl
+    state: present
+    update_cache: yes
+  become: yes
+  become_user: root
+
+- name: Creates kube directory
+  file:
+    path: "/home/{{ default_user }}/.kube"
+    state: directory
+  become: yes
+- name: Set environment variables
+  uri:
+    url: "https://api.digitalocean.com/v2/kubernetes/clusters/{{ clusterid }}/kubeconfig"
+    method: GET
+    headers:
+      authorization: "bearer {{ lookup('env', 'DO_PAT') }}"
+    body_format: json
+    dest: "/home/{{ default_user }}/.kube/config"
+    owner: "{{ default_user }}"
+  become: yes
+#- name: Set environment variables
+#  cmd: curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ${DO_PAT}" "https://api.digitalocean.com/v2/kubernetes/clusters/$K8S_CLUSTERID/kubeconfig" > $OUTFILE
+#  environment:
+#    K8S_CLUSTERID: "{{ clusterid }}"
+#    DO_PAT: "{{ lookup('env', 'DO_PAT') }}"
+#    OUTFILE: ""
+
+
+
