@@ -1,0 +1,23 @@
+---
+- include_vars: 
+    file: secrets.yml
+
+- name: Adding script
+  template:
+    src: download_3rdparty.sh.j2
+    dest: "/home/{{ default_user }}/download_3rdparty.sh"
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
+- name: Adding script 
+  template:
+    src: tmux-attach.sh.j2
+    dest: "/home/{{ default_user }}/tmux-attach.sh"
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
+- name: Adding script 
+  template:
+    src: tmux_conf.j2
+    dest: "/home/{{ default_user }}/.tmux_conf.j2"
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
+
