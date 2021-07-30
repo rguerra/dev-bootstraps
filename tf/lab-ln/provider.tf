@@ -1,21 +1,19 @@
 
-terraform{
-	required_providers {
-		digitalocean = {
-			source = "digitalocean/digitalocean"
-			version = "1.22.2"
-
-		}
-
-	}
-
+terraform {
+  required_providers {
+    linode = {
+      source = "linode/linode"
+      version = "1.16.0"
+    }
+  }
 }
 
-variable "do_token" {}
+provider "linode" {
+  token = var.linode_token
+}
+
+variable "linode_token" {}
 variable "pub_key" {}
 variable "pvt_key" {}
 variable "ssh_fingerprint" {}
 
-provider "digitalocean" {
-  token = var.do_token
-}
