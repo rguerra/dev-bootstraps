@@ -1,12 +1,13 @@
 
 # dev-bootstrap
 
+## Things to install:
+* terraform
+
 ## Tools
 
 ### s3cmd
 https://docs.digitalocean.com/products/spaces/resources/s3cmd/
-
-
 
 ## Ansible
 The purpose of ansible is to:
