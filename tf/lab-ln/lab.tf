@@ -2,7 +2,7 @@
 
 resource "linode_sshkey" "ln_ssh_key" {
   label       = "ln_ssh_key"
-  public_key = file("~/.ssh/id_ed25519.pub")
+  ssh_key = file("~/.ssh/id_ed25519.pub")
 }
 
 resource "linode_instance" "lab" {
