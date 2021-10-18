@@ -32,3 +32,4 @@ override.tf.json
 *tfplan*
 .terraform.lock.hcl
 hosts
+*.retry

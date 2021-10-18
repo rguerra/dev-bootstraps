@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  remote_user: root
+  gather_facts: False
+
+  vars_files:
+    - vars.yml
+  pre_tasks:
+    - name: "[PRE-TASK] Update apt cache if needed."
+      apt: update_cache=yes cache_valid_time=3600
+  roles:
+    - { role: 'init', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
+    - { role: 'gitrepos', tags: 'init', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+    - { role: 'nodejs', tags: 'nodejs', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+    - { role: 'vim', tags: 'vim', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+
+
