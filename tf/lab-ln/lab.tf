@@ -20,6 +20,7 @@ resource "linode_instance" "lab" {
         provisioner "remote-exec" {
         inline = [
                 "export PATH=$PATH:/usr/bin",
+                "sudo apt-get -y install python",
         ]
   }
 
