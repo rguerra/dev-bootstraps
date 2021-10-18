@@ -7,8 +7,10 @@
   vars_files:
     - vars.yml
   pre_tasks:
-    - name: "[PRE-TASK] Update apt cache if needed."
-      apt: update_cache=yes cache_valid_time=3600
+    # - name: "[PRE-TASK] Update apt cache if needed."
+    #   apt: update_cache=yes cache_valid_time=3600
+    - name: "[PRE-TASK] Install python2"
+      raw: sudo apt-get -y install python      
   roles:
     - { role: 'init', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
     - { role: 'gitrepos', tags: 'init', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}

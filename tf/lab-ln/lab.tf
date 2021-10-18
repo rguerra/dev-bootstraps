@@ -2,7 +2,7 @@
 
 
 resource "linode_instance" "lab" {
-        image = "linode/ubuntu18.04"
+        image = "linode/ubuntu20.04"
         label = "Terraform-Web-Example"
         group = "Terraform"
         region = "us-east"
@@ -12,3 +12,4 @@ resource "linode_instance" "lab" {
 	]
 
 }
+
