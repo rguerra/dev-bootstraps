@@ -1,7 +1,7 @@
 
 
 
-resource "linode_instance" "terraform-web" {
+resource "linode_instance" "lab" {
         image = "linode/ubuntu18.04"
         label = "Terraform-Web-Example"
         group = "Terraform"
