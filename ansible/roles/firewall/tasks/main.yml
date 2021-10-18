@@ -3,7 +3,7 @@
 - name: Set up authorized keys for the deployer user
   authorized_key: 
     user: "{{ default_user }}" 
-    key: " {{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    key: " {{ lookup('file', ssh_file) }}"
 - name: Install base packages
   apt: name={{ item }} state=present
   with_items:
