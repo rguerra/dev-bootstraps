@@ -18,21 +18,22 @@
   retries: 100
   until: apt_action is success or ('Failed to lock apt for exclusive operation' not in apt_action.msg and '/var/lib/dpkg/lock' not in apt_action.msg)  
 - name: "[developer_tools.yml] Install Global base packages"
+  become: true
   apt: name={{ item }} state=present
   with_items:
     - bash-completion
     #- python3-pip
     #- locales
-    - gzip
-    - tar
+    #- gzip
+    #- tar
     #- acl
-    - net-tools
-    - htop
-    - git
+    #- net-tools
+    #- htop
+    #- git
     #- vim
-    - build-essential
-    - libssl-dev
-    - libffi-dev
+    #- build-essential
+    #- libssl-dev
+    #- libffi-dev
     - python3-dev
   tags:
     - developer_tools
