@@ -27,8 +27,10 @@
 #     - minikube
 - name: Creates config directory
   file:
-      path: "/usr/local/bin"
-      state: directory
+    path: "/usr/local/bin"
+    state: directory
+  tags:
+    - minikube
 # - name: Installing MiniKube Driver
 # get_url:
 #   url:  https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
@@ -36,6 +38,8 @@
 #   owner: "{{ default_user }}"
 #   mode: u=rwx,g=rwx,o=rwx  
 #   force: yes
+# tags:
+# - minikube
 - name: Installing MiniKube
 get_url:
   url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -43,3 +47,5 @@ get_url:
   owner: "{{ default_user }}"
   mode: u=rwx,g=rwx,o=rwx  
   force: yes
+tags:
+  - minikube
