@@ -1,0 +1,45 @@
+---
+
+# Might not need if you have docker
+# - name: Install libvirt and KVM
+#   apt: name={{ item }} state=present
+#   with_items:
+#     - cpu-checker
+#     - kvm-ok
+#     - libvirt-daemon-system
+#     - libvirt-clients
+#     - qemu-kvm   
+#     - bridge-utils     
+#     #- python-libvirt
+#     #- python-lxml
+#   tags:
+#     - minikube
+
+# - name: "Add remote 'ubuntu' user to 'libvirt' group"
+#   user:
+#     name: "{{ default_user }}"
+#     group: "{{ item }}"
+#     append: yes
+#   with_items: 
+#     - libvirt
+#     - kvm 
+#   tags:
+#     - minikube
+- name: Creates config directory
+  file:
+      path: "/usr/local/bin"
+      state: directory
+# - name: Installing MiniKube Driver
+# get_url:
+#   url:  https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
+#   dest: "/usr/local/bin/docker-machine-driver-kvm2"
+#   owner: "{{ default_user }}"
+#   mode: u=rwx,g=rwx,o=rwx  
+#   force: yes
+- name: Installing MiniKube
+get_url:
+  url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  dest: "/usr/local/bin/minikube"
+  owner: "{{ default_user }}"
+  mode: u=rwx,g=rwx,o=rwx  
+  force: yes
