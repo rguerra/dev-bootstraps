@@ -15,4 +15,6 @@
     - { role: 'nodejs', tags: 'nodejs', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
     - { role: 'vim', tags: 'vim', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
     - { role: 'doctl', tags: 'doctl', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
+    - { role: 'k8s-adm', tags: 'k8s', gather_facts: False, become: yes, become_user: root, become_method: sudo}
+    - { role: 'minikube', tags: 'minikube', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
 
