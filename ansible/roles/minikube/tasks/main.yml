@@ -26,9 +26,15 @@
 #   tags:
 #     - minikube
 - name: Creates config directory
+  become: true
+  become_method: sudo
+  become_user: root
   file:
     path: "/usr/local/bin"
     state: directory
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx  
+    force: yes
   tags:
     - minikube
 # - name: Installing MiniKube Driver
@@ -41,11 +47,12 @@
 # tags:
 # - minikube
 - name: Installing MiniKube
-get_url:
-  url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-  dest: "/usr/local/bin/minikube"
-  owner: "{{ default_user }}"
-  mode: u=rwx,g=rwx,o=rwx  
-  force: yes
-tags:
-  - minikube
+  become: true
+  get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    dest: "/usr/local/bin/minikube"
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx  
+    force: yes
+  tags:
+    - minikube
