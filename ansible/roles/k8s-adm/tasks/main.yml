@@ -43,7 +43,16 @@
   file:
     path: "/home/{{ default_user }}/.kube"
     state: directory
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
   become: yes
+- name: ensure file exists
+  copy:
+    content: ""
+    dest: "/home/{{ default_user }}/.kube/config"
+    force: no
+    owner: "{{ default_user }}"
+    mode: u=rwx,g=rwx,o=rwx
 - name: Set environment variables
   uri:
     url: "https://api.digitalocean.com/v2/kubernetes/clusters/{{ clusterid }}/kubeconfig"
