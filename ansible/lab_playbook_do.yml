@@ -7,16 +7,16 @@
   vars_files:
     - vars.yml
   pre_tasks:
-    - name: Stop apt upgrading services
-      become: true
-      service:
-        name: "{{ item }}"
-        state: stopped
-      with_items:
-        - apt-daily
-        - apt-daily.timer
-        - apt-daily-upgrade
-        - apt-daily-upgrade.timer  
+    # - name: Stop apt upgrading services
+    #   become: true
+    #   service:
+    #     name: "{{ item }}"
+    #     state: stopped
+    #   with_items:
+    #     - apt-daily
+    #     - apt-daily.timer
+    #     - apt-daily-upgrade
+    #     - apt-daily-upgrade.timer  
     - name: Upgrade apt packages.
       become: true
       apt:
