@@ -27,8 +27,8 @@
       delay: 5
       retries: 100
       until: apt_action is success or ('Failed to lock apt for exclusive operation' not in apt_action.msg and '/var/lib/dpkg/lock' not in apt_action.msg)  
-    - name: Upgrade Ubuntu
-      shell: "do-release-upgrade"
+    # - name: Upgrade Ubuntu
+    #   shell: "do-release-upgrade"
   roles:
    - { role: 'init', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
    #- { role: 'firewall', tags: 'firewall', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
