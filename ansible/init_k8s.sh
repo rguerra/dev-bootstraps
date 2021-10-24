@@ -5,4 +5,4 @@ if [ $# -eq 0 ]
   else
     export VERBOSE=$1
 fi
-ansible-playbook $VERBOSE -i lab_hosts k8s_playbook.yml --vault-password-file ~/.vault_pass.txt
+ansible-playbook $VERBOSE -i lab_hosts k8s_playbook.yml --vault-password-file ~/.vault_pass.txt --extra-vars @k8s_vars.yml

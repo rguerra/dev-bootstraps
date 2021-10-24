@@ -1,8 +1,5 @@
 
 ---
-- name: Include k8s variables
-  include_vars:
-    file: "k8s_vars.yml"
 - name: "Get Ubuntu version"
   shell: lsb_release -cs
   register: ubuntu_version
