@@ -20,16 +20,13 @@
     - name: Upgrade apt packages.
       become: true
       apt:
-        upgrade: full
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 # One day
       register: apt_action
       delay: 5
       retries: 100
       until: apt_action is success or ('Failed to lock apt for exclusive operation' not in apt_action.msg and '/var/lib/dpkg/lock' not in apt_action.msg)  
-    # - name: Upgrade all apt packages
-    #   apt: upgrade=dist force_apt_get=yes  
-    - name: "Update and upgrade apt cache if needed."
-      become: true
-      apt: upgrade=yes update_cache=yes cache_valid_time=86400 #One Day
     - name: Upgrade Ubuntu
       shell: "do-release-upgrade"
   roles:
