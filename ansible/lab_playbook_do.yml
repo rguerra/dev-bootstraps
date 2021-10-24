@@ -7,10 +7,11 @@
   vars_files:
     - vars.yml
   pre_tasks:
+    - name: "[PRE-TASK] Update apt cache if needed."
+      become: true
+      apt: upgrade=yes update_cache=yes cache_valid_time=86400 #One Day
     - name: Upgrade Ubuntu
       shell: "do-release-upgrade"
-  #   - name: "[PRE-TASK] Update apt cache if needed."
-  #     apt: update_cache=yes cache_valid_time=3600
   roles:
    - { role: 'init', tags: 'init', gather_facts: False, become: yes, become_user: root, become_method: sudo}
    #- { role: 'firewall', tags: 'firewall', gather_facts: False, become: yes, become_user: rguerr, become_method: sudo}
